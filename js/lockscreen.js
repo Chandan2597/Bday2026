@@ -148,7 +148,7 @@ class LockScreen {
     }
   }
 
-  decryptPhotos(pin) {
+  async decryptPhotos(pin) {
     if (!window.ENCODED_PHOTOS) return;
     const decodeXOR = (base64Str, key) => {
       const xored = atob(base64Str);
@@ -167,6 +167,7 @@ class LockScreen {
       if (window.CONFIG[r]) {
         for (const item of window.CONFIG[r]) {
           if (window.ENCODED_PHOTOS[item.image]) {
+            await new Promise(resolve => setTimeout(resolve, 15)); // Yield to main thread for smooth animation
             item.image = decodeXOR(window.ENCODED_PHOTOS[item.image], pin);
           }
         }
