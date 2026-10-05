@@ -1,0 +1,352 @@
+/* ==========================================================
+   ✨ ANIMATIONS STYLESHEET: DYNAMIC 4-SIDED BLOOM & FX ✨
+   ========================================================== */
+
+/* ---------------------------------------------
+   1. 4-DIRECTION FLOWER BLOOM OVERLAY & CANVAS
+   --------------------------------------------- */
+#flower-bloom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, rgba(30, 10, 42, 0.97) 0%, rgba(10, 3, 16, 0.99) 100%);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  pointer-events: all;
+  will-change: opacity, transform;
+}
+
+#flower-bloom-overlay.fade-out {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+#bloom-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.bloom-center-text {
+  position: relative;
+  text-align: center;
+  z-index: 10001;
+  color: #fff;
+  padding: 1.8rem 2.4rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 28px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 35px rgba(255, 77, 121, 0.45);
+  max-width: 90vw;
+  opacity: 0;
+  transform: scale(0.68) translateY(18px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.bloom-center-text.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.bloom-center-text.hide-out {
+  opacity: 0;
+  transform: scale(1.2) translateY(-18px);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bloom-center-text .glow-heart {
+  font-size: 3.8rem;
+  animation: heart-beat 1s infinite alternate ease-in-out;
+  filter: drop-shadow(0 0 20px #ff4d79);
+}
+
+.bloom-center-text h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4.5vw, 3.4rem);
+  background: linear-gradient(135deg, #ffffff 10%, #ffb3c6 60%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0.4rem 0;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.bloom-center-text p {
+  font-size: 1.25rem;
+  color: var(--gold-accent);
+  font-family: var(--font-hand);
+  margin-top: 0.2rem;
+}
+
+@keyframes heart-beat {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.22); }
+}
+
+/* ---------------------------------------------
+   2. LOCK SCREEN SHAKE & GLOW
+   --------------------------------------------- */
+.shake-error {
+  animation: lock-shake 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes lock-shake {
+  10%, 90% { transform: translate3d(-4px, 0, 0); }
+  20%, 80% { transform: translate3d(6px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+  40%, 60% { transform: translate3d(8px, 0, 0); }
+}
+
+.unlocked-glow {
+  box-shadow: 0 0 50px rgba(50, 255, 126, 0.7), 0 0 100px rgba(255, 77, 121, 0.5) !important;
+  border-color: #32ff7e !important;
+  transform: scale(1.03);
+  transition: all 0.4s ease;
+}
+
+/* ---------------------------------------------
+   3. DUAL PHOTO RIBBON INFINITE MARQUEE
+   --------------------------------------------- */
+.ribbon-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 1.5rem 0;
+}
+
+/* Edge shadow gradients to soften edges */
+.ribbon-container::before,
+.ribbon-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+.ribbon-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(13, 7, 20, 0.95), transparent);
+}
+.ribbon-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(13, 7, 20, 0.95), transparent);
+}
+
+.ribbon-track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Top ribbon moving left */
+.track-top-scroll {
+  animation: scroll-left-ribbon 38s linear infinite;
+}
+
+/* Bottom ribbon moving left at a slightly varied speed */
+.track-bottom-scroll {
+  animation: scroll-left-ribbon 32s linear infinite;
+}
+
+/* Third ribbon moving left at a different speed */
+.track-third-scroll {
+  animation: scroll-left-ribbon 35s linear infinite;
+}
+
+.ribbon-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-left-ribbon {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+/* ---------------------------------------------
+   4. CANDLE FLAME & SMOKE
+   --------------------------------------------- */
+.candle-flame {
+  width: 14px;
+  height: 24px;
+  background: radial-gradient(ellipse at 50% 80%, #ffffff 0%, #fffa65 40%, #ff3838 85%);
+  border-radius: 50% 50% 35% 35%;
+  box-shadow: 0 0 15px #ff9f1a, 0 0 25px #ff3838;
+  margin: 0 auto;
+  animation: flame-flicker 0.6s infinite alternate ease-in-out;
+  transform-origin: 50% 90%;
+  cursor: pointer;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+@keyframes flame-flicker {
+  0% {
+    transform: scale(1) rotate(-2deg) skewX(-2deg);
+    filter: drop-shadow(0 0 8px #fffa65);
+  }
+  50% {
+    transform: scale(1.1) rotate(3deg) skewX(2deg);
+    filter: drop-shadow(0 0 16px #ff793f);
+  }
+  100% {
+    transform: scale(0.95) rotate(-3deg) skewX(-1deg);
+    filter: drop-shadow(0 0 10px #ff3838);
+  }
+}
+
+.candle-flame.extinguished {
+  opacity: 0;
+  transform: scale(0.1) translateY(-10px);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------
+   5. FIREWORKS & PARTICLES
+   --------------------------------------------- */
+#fireworks-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.firework-burst {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.firework-spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  animation: spark-explode 1.4s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+  box-shadow: 0 0 10px currentColor;
+}
+
+@keyframes spark-explode {
+  0% {
+    transform: translate(0, 0) scale(1.4);
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(var(--dx), calc(var(--dy) + 40px)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Card Confetti Particle */
+.mini-confetti-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 99999;
+  animation: confetti-drift 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes confetti-drift {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty) + 30px)) scale(0.4) rotate(360deg);
+  }
+}
+
+/* Drifting Game Star */
+.drifting-game-star {
+  position: absolute;
+  top: -40px;
+  font-size: 2.2rem;
+  cursor: pointer;
+  z-index: 20;
+  filter: drop-shadow(0 0 12px #fffa65);
+  animation: star-fall linear forwards;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.drifting-game-star:hover {
+  transform: scale(1.3) rotate(20deg);
+}
+
+.drifting-game-star.star-caught {
+  transform: scale(2) rotate(180deg);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+@keyframes star-fall {
+  0% {
+    top: -40px;
+    transform: rotate(0deg) translateX(0px);
+  }
+  50% {
+    transform: rotate(180deg) translateX(25px);
+  }
+  100% {
+    top: 105%;
+    transform: rotate(360deg) translateX(-20px);
+  }
+}
+
+/* Wax Seal Sparkle */
+.seal-sparkle-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  font-size: 1.4rem;
+  animation: seal-pop 1.1s ease-out forwards;
+}
+
+/* Main Celebration Reveal Entrance */
+.visible-reveal {
+  animation: reveal-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes reveal-fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

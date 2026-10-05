@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Miss Universe ✨ | October 6th</title>
+  <meta name="description"
+    content="A special, romantic birthday experience crafted with all my love for Miss Universe on October 6th." />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+
+<body>
+
+  <!-- Ambient Floating Petals Canvas Layer -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Fireworks Overlay Layer -->
+  <div id="fireworks-container"></div>
+
+  <!-- 4-Direction Flower Bloom Transition Curtain (Hidden initially) -->
+  <div id="flower-bloom-overlay" class="hidden"></div>
+
+  <!-- =========================================================
+       1. LOCK SCREEN: "Hi Miss Universe" & PIN CODE (0610)
+       ========================================================= -->
+  <div id="lock-screen">
+    <div class="lock-card">
+      <div class="lock-avatar">👑</div>
+      <h1 class="lock-greeting">Hi Miss Universe ✨</h1>
+      <p class="lock-subtext">Enter your special 4-digit birthday code to enter</p>
+
+      <!-- PIN Indicator Dots -->
+      <div class="pin-dots-container" id="pin-dots">
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+      </div>
+
+      <!-- Numeric Keypad -->
+      <div class="lock-keypad">
+        <button type="button" class="keypad-btn" data-val="1">1</button>
+        <button type="button" class="keypad-btn" data-val="2">2</button>
+        <button type="button" class="keypad-btn" data-val="3">3</button>
+        <button type="button" class="keypad-btn" data-val="4">4</button>
+        <button type="button" class="keypad-btn" data-val="5">5</button>
+        <button type="button" class="keypad-btn" data-val="6">6</button>
+        <button type="button" class="keypad-btn" data-val="7">7</button>
+        <button type="button" class="keypad-btn" data-val="8">8</button>
+        <button type="button" class="keypad-btn" data-val="9">9</button>
+        <button type="button" class="keypad-btn action-btn" data-val="clear">Clear</button>
+        <button type="button" class="keypad-btn" data-val="0">0</button>
+        <button type="button" class="keypad-btn action-btn" data-val="backspace">⌫</button>
+      </div>
+
+      <!-- Error & Hint Notification -->
+      <div id="lock-error-msg" class="lock-error"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FLOATING MUSIC CONTROLLER HUD
+       ========================================================= -->
+  <div id="floating-music-player" class="music-player-widget hidden">
+    <button type="button" id="music-toggle-btn" class="music-btn" aria-label="Toggle Romantic Music">
+      <span id="music-icon" class="pulse-music">🎵</span>
+    </button>
+    <div class="music-info">
+      <span class="music-title">Aesthetic Melody</span>
+      <span id="music-status-text" class="music-sub">Playing with Love ✨</span>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MAIN CELEBRATION EXPERIENCE (Revealed after PIN & Bloom)
+       ========================================================= -->
+  <main id="main-content" class="hidden">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section container">
+      <div class="hero-crown">👑</div>
+      <p class="hero-greeting">To The Most Beautiful Soul</p>
+      <h1 class="hero-title">Happiest Birthday, <span class="recipient-nickname">Miss Universe</span>!</h1>
+      <div class="hero-date-badge">
+        <span>🌸</span>
+        <span>Celebrating You on <b>October 6th</b></span>
+        <span>🌸</span>
+      </div>
+      <p class="section-subtitle">
+        Today the universe celebrates the kindest heart, the brightest smile, and the most extraordinary woman to ever
+        grace this world.
+      </p>
+      <a href="#section-ten-things" class="hero-scroll-indicator" style="text-decoration:none;">
+        <span>Scroll to explore your birthday universe</span>
+        <span class="scroll-arrow">↓</span>
+      </a>
+    </section>
+
+    <!-- SECTION 1: 10 THINGS I LOVE ABOUT YOU -->
+    <section id="section-ten-things" class="section-wrapper container">
+      <div class="text-center">
+        <span class="section-badge">✨ Heartfelt Secrets</span>
+        <h2 class="section-title">10 Things I Adore About You</h2>
+        <p class="section-subtitle">
+          Click each gift box to uncover just a few of the countless reasons why you are my favourite.
+        </p>
+        <div id="reasons-counter-badge" class="reasons-counter-badge">
+          ✨ Discovered <b>0 / 10</b> Reasons Why You're Magic
+        </div>
+      </div>
+
+      <!-- Interactive 10 Cards Grid -->
+      <div class="ten-things-grid" id="ten-things-grid"></div>
+
+      <!-- Celebration banner when all 10 are unlocked -->
+      <div id="all-reasons-badge" class="all-reasons-badge hidden">
+        <h3
+          style="color: var(--gold-accent); font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.5rem;">
+          👑 You Unlocked All 10 Secrets! 💖
+        </h3>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+          The truth is, even 10,000 cards couldn’t hold all the things I appreciate about you. You’re genuinely an
+          amazing person, just the way you are.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: MEMORY LANE (DUAL MOVING CLIPBOARD RIBBONS) -->
+    <section id="section-memories" class="section-wrapper">
+      <div class="container text-center">
+        <span class="section-badge">📷 Memory Lane</span>
+        <h2 class="section-title">A Journey Through Time</h2>
+        <p class="section-subtitle">
+          From your sweet childhood giggles to the stunning, brilliant queen you are today. Hover to pause!
+        </p>
+      </div>
+
+      <!-- Ribbon 1: Childhood to Young Era -->
+      <div class="ribbon-section-header container">
+        <h3>In Little Frames</h3>
+        <div class="ribbon-line"></div>
+      </div>
+      <div class="ribbon-container">
+        <div class="ribbon-track track-top-scroll" id="ribbon-track-top"></div>
+      </div>
+
+      <!-- Ribbon 2: Young Adult to Present Day -->
+      <div class="ribbon-section-header container" style="margin-top: 3.5rem;">
+        <h3>Through the Years</h3>
+        <div class="ribbon-line"></div>
+      </div>
+      <div class="ribbon-container">
+        <div class="ribbon-track track-bottom-scroll" id="ribbon-track-bottom"></div>
+      </div>
+
+      <!-- Ribbon 3: Special Memories -->
+      <div class="ribbon-section-header container" style="margin-top: 3.5rem;">
+        <h3>Along the Way</h3>
+        <div class="ribbon-line"></div>
+      </div>
+      <div class="ribbon-container">
+        <div class="ribbon-track track-third-scroll" id="ribbon-track-third"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: THE HEARTFELT LOVE LETTER (TYPEWRITER REVEAL) -->
+    <section id="section-letter" class="section-wrapper">
+      <div class="container text-center">
+        <span class="section-badge">💌 With love, care and warmth</span>
+        <h2 class="section-title">A Letter To Miss Universe</h2>
+        <p class="section-subtitle">
+          Words can hardly capture what you mean to me, but here is what my soul whispers whenever I think of you.
+        </p>
+      </div>
+
+      <div class="letter-parchment-container">
+        <div class="letter-parchment">
+          <!-- Dynamic Typewriter Content -->
+          <div id="letter-content"></div>
+
+          <!-- Controls Bar -->
+          <div class="letter-controls-bar">
+            <button type="button" id="letter-pause-btn" class="letter-ctrl-btn">⏸️ Pause</button>
+            <button type="button" id="letter-ff-btn" class="letter-ctrl-btn">⏩ Fast Forward</button>
+            <button type="button" id="letter-replay-btn" class="letter-ctrl-btn">🔄 Replay Letter</button>
+          </div>
+
+          <!-- Wax Seal Stamp -->
+          <div class="wax-seal-container">
+            <button type="button" id="wax-seal-stamp" class="wax-seal-btn hidden" title="Click to Seal with Love">
+              <div class="wax-stamp-inner">
+                <span class="wax-monogram">💖</span>
+                <span class="wax-text">Stamp</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: INTERACTIVE BIRTHDAY PARTY & GAMES -->
+    <section id="section-games" class="section-wrapper container">
+      <div class="text-center">
+        <span class="section-badge">🎉 Birthday Party & Games</span>
+        <h2 class="section-title">Fun Surprises Just For You</h2>
+        <p class="section-subtitle">
+          Blow your birthday candles, scratch your special VIP voucher, and catch falling stars for sweet love notes!
+        </p>
+      </div>
+
+      <!-- 4A: Virtual Birthday Cake -->
+      <div class="interactive-cake-section">
+        <h3
+          style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--gold-accent); margin-bottom: 0.5rem;">
+          🎂 Make a Birthday Wish!
+        </h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          Click the candles or tap the button below to blow them out and make your secret wish!
+        </p>
+
+        <div class="cake-wrapper" id="birthday-cake-container">
+          <!-- 3 Candles -->
+          <div class="candles-row">
+            <div class="candle">
+              <div class="candle-flame"></div>
+              <div class="candle-stick"></div>
+            </div>
+            <div class="candle">
+              <div class="candle-flame"></div>
+              <div class="candle-stick"></div>
+            </div>
+            <div class="candle">
+              <div class="candle-flame"></div>
+              <div class="candle-stick"></div>
+            </div>
+          </div>
+
+          <!-- Top Tier -->
+          <div class="cake-tier tier-top">
+            <div class="cake-frosting"></div>
+          </div>
+          <!-- Bottom Tier -->
+          <div class="cake-tier tier-bottom">
+            <div class="cake-frosting"></div>
+          </div>
+          <!-- Plate -->
+          <div class="cake-plate"></div>
+        </div>
+
+        <button type="button" id="blow-candles-btn" class="blow-cake-btn">
+          💨 Blow Out The Candles!
+        </button>
+      </div>
+
+      <!-- 4B: Golden Scratch-Off Voucher Ticket -->
+      <div style="margin-top: 5rem; text-align: center;">
+        <h3
+          style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--gold-accent); margin-bottom: 0.5rem;">
+          🎫 Your Golden Birthday Voucher
+        </h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          Scratch off the golden foil with your cursor or finger to reveal your exclusive birthday date pass!
+        </p>
+
+        <div class="scratch-card-container">
+          <div class="scratch-wrapper" id="scratch-card-wrapper">
+            <!-- Hidden Voucher Prize -->
+            <div class="scratch-voucher-content">
+              <span id="scratch-voucher-title" class="voucher-title">✨ VIP Birthday Pass ✨</span>
+              <h4 id="scratch-voucher-prize" class="voucher-prize">🎉 SPECIAL SURPRISE 🎉</h4>
+              <p id="scratch-voucher-desc" class="voucher-desc">
+                1 Full Day of Pampering + Your Favourite Food & Desserts on Demand + 1 Huge Surprise!
+              </p>
+              <span id="scratch-voucher-code" class="voucher-code">CODE: UNIVERSE-0610</span>
+            </div>
+            <!-- Canvas Foil Cover -->
+            <canvas id="scratch-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4C: Star Catcher Mini-Game -->
+      <div style="margin-top: 5rem; text-align: center;">
+        <h3
+          style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--gold-accent); margin-bottom: 0.5rem;">
+          ⭐ Catch A Falling Star
+        </h3>
+        <p style="color: var(--text-muted);">
+          Tap any of the drifting stars below to catch a secret note written for you.
+        </p>
+        <button type="button" id="spawn-stars-btn" class="spawn-stars-btn">✨ Drop More Stars ✨</button>
+
+        <div class="star-catcher-arena" id="star-catcher-arena"></div>
+      </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer
+      style="text-align: center; padding: 5rem 1rem 3rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 5rem;">
+      <p style="font-family: var(--font-hand); font-size: 2.4rem; color: var(--gold-accent); margin-bottom: 0.5rem;">
+        Happy Birthday, Miss Universe 💖
+      </p>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Crafted with warmth, appreciation, and gratitude, celebrating the simple fact that you exist.
+      </p>
+    </footer>
+  </main>
+
+  <!-- =========================================================
+       INTERACTIVE MODALS & LIGHTBOXES
+       ========================================================= -->
+
+  <!-- 1. Polaroid ion Lightbox Modal -->
+  <div id="photo-modal" class="photo-modal-overlay hidden">
+    <div class="modal-polaroid-frame">
+      <button type="button" id="modal-close-btn" class="modal-close-btn" aria-label="Close photo preview">✕</button>
+      <div class="modal-img-wrapper">
+        <img id="modal-photo-img" src="" alt="Memory Snapshot" />
+      </div>
+
+      <div class="modal-actions">
+        <span id="modal-photo-tag" style="font-size: 0.8rem; color: #8c1d40; font-weight: 600;">✨ Memory</span>
+        <button type="button" id="modal-heart-btn" class="modal-heart-btn">
+          <span>💖 Love this memory</span>
+          <span id="modal-heart-count">1</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Make A Wish Birthday Modal -->
+  <div id="wish-modal" class="photo-modal-overlay hidden">
+    <div class="modal-polaroid-frame" style="text-align: center; padding: 2.5rem 2rem;">
+      <div style="font-size: 4rem; margin-bottom: 0.8rem; animation: heart-beat 1s infinite alternate;">🎂✨</div>
+      <h3 style="font-family: var(--font-serif); font-size: 2rem; color: #9e1445; margin-bottom: 0.6rem;">
+        May All Your Dreams Come True!
+      </h3>
+      <p style="font-size: 1rem; color: #5c3042; line-height: 1.6; margin-bottom: 1.8rem;">
+        Your wish has been sent straight to the stars. May this year bring you all the happiness, laughter, and
+        wonderful moments you deserve, and make it a year to remember!
+      </p>
+      <button type="button" id="close-wish-modal" class="modal-heart-btn"
+        style="margin: 0 auto; padding: 0.7rem 2rem; font-size: 1.05rem;">
+        💖 Keep Celebrating!
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. Star Catcher Love Note Modal -->
+  <div id="star-note-modal" class="photo-modal-overlay hidden">
+    <div class="modal-polaroid-frame" style="text-align: center; padding: 2.2rem 2rem;">
+      <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🌟</div>
+      <h3 style="font-family: var(--font-hand); font-size: 2.2rem; color: #9e1445; margin-bottom: 0.6rem;">
+        A Secret Thought For You
+      </h3>
+      <p id="star-note-text"
+        style="font-family: var(--font-serif); font-size: 1.15rem; color: #3b1828; line-height: 1.5; margin-bottom: 1.8rem; font-style: italic;">
+        You’re definitely one of the coolest and most wonderful people I know!
+      </p>
+      <button type="button" id="close-star-note" class="modal-heart-btn"
+        style="margin: 0 auto; padding: 0.6rem 1.8rem;">
+        ✨ Got it with smile!
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT SCRIPTS
+       ========================================================= -->
+  <script src="js/encoded_photos.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/flowers.js"></script>
+  <script src="js/lockscreen.js"></script>
+  <script src="js/ribbons.js"></script>
+  <script src="js/typewriter.js"></script>
+  <script src="js/games.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
