@@ -1028,11 +1028,31 @@
   .lock-card {
     padding: 2rem 1.5rem;
   }
+  .lock-greeting {
+    font-size: 1.8rem;
+  }
+  .lock-avatar {
+    width: 65px;
+    height: 65px;
+    font-size: 1.8rem;
+    margin: 0 auto 1rem auto;
+  }
+  .keypad-btn {
+    padding: 0.7rem 0;
+    font-size: 1.2rem;
+  }
   .letter-parchment {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.2rem;
+  }
+  .letter-recipient {
+    font-size: 1.8rem;
+  }
+  .letter-paragraph {
+    font-size: 1rem;
   }
   .ten-things-grid {
     grid-template-columns: 1fr;
+    gap: 1.2rem;
   }
   .modal-polaroid-frame {
     padding: 1rem;
@@ -1040,4 +1060,40 @@
   .modal-img-wrapper {
     height: 240px;
   }
+  .scratch-wrapper {
+    height: 200px;
+  }
+  .voucher-prize {
+    font-size: 1.2rem;
+  }
+  .wax-seal-btn {
+    width: 75px;
+    height: 75px;
+  }
+  .wax-seal-btn .wax-monogram {
+    font-size: 1.6rem;
+  }
+  .ribbon-section-header {
+    padding-left: 1rem;
+  }
 }
+
+@media (max-width: 480px) {
+  .polaroid-card {
+    width: 230px;
+    padding: 10px 10px 14px 10px;
+  }
+  .polaroid-image-wrapper {
+    height: 190px;
+  }
+  .modal-img-wrapper {
+    height: 200px;
+  }
+  .cake-wrapper {
+    transform: scale(0.85);
+  }
+  .star-catcher-arena {
+    height: 260px;
+  }
+}
+
